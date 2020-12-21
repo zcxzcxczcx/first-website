@@ -12,13 +12,21 @@ type (
 	}
 )
 
-func init() {
-	session, err := mgo.Dial("server1.example.com,server2.example.com")
+var (
+	mgoSession = newMongoClient()
+)
+
+const (
+	Users = "user"
+)
+
+func newMongoClient() *mgo.Session {
+	session, err := mgo.Dial("mongodb://admin:123456@121.196.11.0:27017/first_website")
 	if err != nil {
 		panic(err)
 	}
-	defer session.Close()
+	return session
 }
-func (srv LoginSrv) Save(user User) {
-
+func (srv LoginSrv) Save(user User) (err error) {
+	return mgoSession.DB("").C(Users).Insert(user)
 }

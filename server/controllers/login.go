@@ -1,8 +1,15 @@
 package controllers
 
-import(
+import (
+	"context"
+	"fmt"
+	"time"
+
+	"first_website/proto"
+
 	"github.com/dgrijalva/jwt-go"
 )
+
 const (
 	SECRETKEY = "243223ffslsfsldfl412fdsfsdf" //私钥
 )
@@ -14,10 +21,11 @@ type CustomClaims struct {
 }
 
 // Login implements
-func (s *Server) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginResp, error) {
+func (s *Server) Login(ctx context.Context, in *proto.LoginReq) (*proto.LoginResp, error) {
+
 	maxAge := 60 * 60 * 24
 	customClaims := &CustomClaims{
-		UserId: , //用户id
+		UserId: 1, //用户id
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Duration(maxAge) * time.Second).Unix(), // 过期时间，必须设置
 			Issuer:    "jerry",                                                    // 非必须，也可以填充用户名，
@@ -30,7 +38,7 @@ func (s *Server) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginResp, err
 		fmt.Println(err)
 	}
 	fmt.Printf("token: %v\n", tokenString)
-
+	return
 }
 
 // // IsLogin
