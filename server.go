@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-"first_website/proto"
+	"first_website/proto"
 	"first_website/server/controllers"
 
 	"google.golang.org/grpc"
@@ -22,7 +22,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &controllers.Server{})
+	proto.RegisterFirstWebsiteServer(s, &controllers.Server{})
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

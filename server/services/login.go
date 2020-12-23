@@ -17,11 +17,11 @@ var (
 )
 
 const (
-	Users = "user"
+	Users = "users"
 )
 
 func newMongoClient() *mgo.Session {
-	session, err := mgo.Dial("mongodb://admin:123456@121.196.11.0:27017/first_website")
+	session, err := mgo.Dial("mongodb://root:123456@121.196.11.0:27017/first_website")
 	if err != nil {
 		panic(err)
 	}
