@@ -1,11 +1,11 @@
 package main
 
 import (
+	"first_website/proto"
 	"log"
 
-	"first_website/proto"
-
 	"github.com/gin-gonic/gin"
+
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )

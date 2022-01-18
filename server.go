@@ -1,14 +1,8 @@
 package main
 
 import (
-	"log"
-	"net"
-
-	"first_website/proto"
-	"first_website/server/controllers"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
+	"fmt"
+	"time"
 )
 
 const (
@@ -16,19 +10,29 @@ const (
 )
 
 func main() {
-	lis, err := net.Listen("tcp", port)
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
+	for i := 0; i < 10; i++ {
 
-	s := grpc.NewServer()
-	proto.RegisterFirstWebsiteServer(s, &controllers.Server{})
-	// Register reflection service on gRPC server.
-	reflection.Register(s)
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+		go func() {
+			fmt.Printf("ddddddddddddddddd=%v\n", i)
+		}()
 	}
+	time.Sleep(100 * time.Second)
 }
+
+// func main() {
+// 	lis, err := net.Listen("tcp", port)
+// 	if err != nil {
+// 		log.Fatalf("failed to listen: %v", err)
+// 	}
+
+// 	s := grpc.NewServer()
+// 	proto.RegisterFirstWebsiteServer(s, &controllers.Server{})
+// 	// Register reflection service on gRPC server.
+// 	reflection.Register(s)
+// 	if err := s.Serve(lis); err != nil {
+// 		log.Fatalf("failed to serve: %v", err)
+// 	}
+// }
 
 // func main() {
 // 	r := gin.Default()
