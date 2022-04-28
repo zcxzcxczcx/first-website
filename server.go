@@ -1,22 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"time"
-)
+	"github.com/pyroscope-io/pyroscope/pkg/agent/profiler"
 
-const (
-	port = ":50051"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	for i := 0; i < 10; i++ {
+	profiler.Start(profiler.Config{
+		ApplicationName: "simple.golang.app",
+		ServerAddress:   "http://121.196.11.0:4040",
+	})
+	r := gin.Default()
+	r.GET("/hello", func(c *gin.Context) {
 
-		go func() {
-			fmt.Printf("ddddddddddddddddd=%v\n", i)
-		}()
-	}
-	time.Sleep(100 * time.Second)
+		c.JSON(200, gin.H{"hello": 11})
+	})
+	r.Run(":8000")
 }
 
 // func main() {
